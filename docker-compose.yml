@@ -1,0 +1,7 @@
+version: "3"
+services:
+  ldap-pw-check:
+    build: .
+    container_name: ldap-pw-check
+    volumes:
+      - ./:/app
