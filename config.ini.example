@@ -3,7 +3,7 @@ ldapserver=ldap://10.1.1.32:389
 ldapuser=changeme
 ldappw=changeme
 ; Schulname angeben
-ldapschule=WeG
+ldapschule=Schulname
 ; ou für das der Passwortcheck durchgeführt werden soll
 ; Aktuell nur für eine Implementiert
 ldapou= Lehrer
