@@ -1,6 +1,7 @@
 version: "3"
 services:
   ldap-pw-check:
+    image: ldap-pw-check:0.1
     build: .
     container_name: ldap-pw-check
     volumes:
