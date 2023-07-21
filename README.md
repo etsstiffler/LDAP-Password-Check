@@ -19,7 +19,7 @@ Hinweis: Falls die mobile SK nicht installiert ist, bitte nach [Anleitung](https
 ### Installation
 1. Kopieren Sie die Dateien via WinSCP/BitviseSSH auf den Gserver in den Ordner /opt/paedML/ldappwcheck (Ordner ggf. anlegen)
 1. Loggen Sie sich auf der Konsole im Gserver ein.
-1. Wechseln sie mit `cd /opt/paedMl/ldappwcheck` in den oben erstellen Ordner.
+1. Wechseln sie mit `cd /opt/paedML/ldappwcheck` in den oben erstellen Ordner.
 1. Führen Sie folgende Befehle aus:
     ```
     chmod +x docker-compose
