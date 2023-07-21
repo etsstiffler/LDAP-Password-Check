@@ -3,7 +3,7 @@ RUN apt-get update && apt-get install -y \
     cron \
     zip \
     unzip\
-    libldap2-dev\
+    libldap2-dev
 
 RUN apt-get clean
 
