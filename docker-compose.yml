@@ -4,6 +4,6 @@ services:
     image: ldap-pw-check:0.1
     build: .
     container_name: ldap-pw-check
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./:/app
