@@ -13,9 +13,9 @@ mailuser=changeme
 mailpw=changeme
 mailfrom=admin@werkgymnasium.de
 pwresethost=https://sk.meineschule.de
-mailstmpauth=false
-mailstmpsecure=false
-mailstmpautotls=false
+mailsmtpauth=false
+mailsmtpsecure=false
+mailsmtpautotls=false
 ; Debugging Nachrichten für Mailversand - nur für Entwickler gedacht
 ; 0 = no output, 1 = errors and messages, 2 = messages only
 maildebug=0
