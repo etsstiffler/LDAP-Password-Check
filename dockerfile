@@ -26,7 +26,8 @@ ADD ./ /app
 WORKDIR /app
 
 # Install PHPMailer
-RUN composer require phpmailer/phpmailer
+RUN composer install
+# RUN composer require phpmailer/phpmailer
 
 # Create the log file to be able to run tail
 RUN touch /var/log/cron.log
