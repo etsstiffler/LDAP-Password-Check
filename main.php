@@ -70,7 +70,7 @@ if ($ldapconn) {
                 # Wenn gültige Tage sich zwischen 0 und 10 befindet, wird eine Mail gesendet
                 # Neue bzw. abgelaufene Accounts haben negative Gültigkeitstage
                 if((0 <= $validdays) && ($validdays <= 10)){
-                    $mail = new PHPMailer();
+                    $mail = new PHPMailer(true);
                     $mail->CharSet = 'utf-8'; 
                     $mail->isSMTP();
                     $mail->SMTPDebug = $debug;
