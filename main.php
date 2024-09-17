@@ -30,9 +30,9 @@ $mailhost = $conf["mailhost"];
 $mailuser = $conf["mailuser"];
 $mailpw = $conf["mailpw"];
 $mailfrom = $conf["mailfrom"];
-$mailstmpauth = $conf["mailstmpauth"];
-$mailstmpsecure = $conf["mailstmpsecure"];
-$mailstmpautotls = $conf["mailstmpautotls"];
+$mailsmtpauth = $conf["mailsmtpauth"];
+$mailsmtpsecure = $conf["mailsmtpsecure"];
+$mailsmtpautotls = $conf["mailsmtpautotls"];
 $debug = $conf["maildebug"];
 $resethost = $conf["pwresethost"];
 
@@ -76,9 +76,9 @@ if ($ldapconn) {
                     $mail->isSMTP();
                     $mail->SMTPDebug = $debug;
                     $mail->Host = $mailhost;
-                    $mail->SMTPSecure = $mailstmpsecure;
-                    $mail->SMTPAutoTLS = $mailstmpautotls;
-                    $mail->SMTPAuth = $mailstmpauth;
+                    $mail->SMTPSecure = $mailsmtpsecure;
+                    $mail->SMTPAutoTLS = $mailsmtpautotls;
+                    $mail->SMTPAuth = $mailsmtpauth;
                     $mail->Username = $mailuser;
                     $mail->Password = $mailpw;
                     $mail->setFrom($mailfrom);
