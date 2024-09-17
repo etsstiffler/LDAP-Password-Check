@@ -1,4 +1,4 @@
-FROM php:cli
+FROM php:8.2.8-cli
 RUN apt-get update && apt-get install -y \
     cron \
     zip \
@@ -27,7 +27,7 @@ WORKDIR /app
 
 # Install PHPMailer
 RUN composer install
-# RUN composer require phpmailer/phpmailer
+RUN composer require phpmailer/phpmailer
 
 # Create the log file to be able to run tail
 RUN touch /var/log/cron.log
