@@ -17,7 +17,7 @@ mailuser=changeme
 ; Passwort in zwei einzelne Anführungszeichen setzen, um Probleme mit Sodnerzeichen zu verhindern
 mailpw='changeme'
 ; Absendeadresse für die Mails
-mailfrom=admin@wmeineschulem.de
+mailfrom=admin@wmeineschule.de
 ; URL der mobilen Schulkonsole
 pwresethost=https://sk.meineschule.de
 
