@@ -1,4 +1,6 @@
 vendor/*
+log/*
 composer*
 !composer.json
 config.ini
+!.gitkeep
