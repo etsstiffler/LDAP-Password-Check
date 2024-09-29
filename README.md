@@ -68,7 +68,7 @@ Hinweis: Der Befehl `./docker-compose build --no-cache` muss nach jeder spätere
 
     `docker ps`
     
-### Aktualisieren des Dockerimages
+### Aktualisieren des Docker-Images
 1. Container stoppen (siehe oben)
 1. Altes Image löschen
 
@@ -84,14 +84,14 @@ Hinweis: Der Befehl `./docker-compose build --no-cache` muss nach jeder spätere
 - Beim Bearbeiten von Dateien mit VS-Code kann es vorkommen, dass Zeilenumbrüche und -enden nicht Linuxkonform formatiert werden. Dies ist speziell beim Editieren der Crontab zu beachten.
 - Sollten Probleme beim Starten/Stoppen des Containers bzw. Bauen des Containers hilft meist ein neustart des Docker Prozesses
 
-    systemctl restart docker.service
+    `systemctl restart docker.service`
 
 - Alte Containerleichen können mittels 
 
-    docker container rm CONTAINER_NAME
+    `docker container rm CONTAINER_NAME`
 
   entfernt werden.
 
 - ACHTUNG nur für Erfahrene (!!!), mit VORSICHT verwenden und vorher [Dokumentation](https://docs.docker.com/reference/cli/docker/system/prune/) lesen. Das gesamte Docker System kann mit 
-    docker system prune
-  aufgeräumt werden.
+    `docker system prune`
+aufgeräumt werden.
