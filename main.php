@@ -140,7 +140,7 @@ if(!$conf){
                         $mail->Subject = "Erinnerung - Passwortablauf in $validdays Tagen";
                         $mail->isHTML(true);
                         $mailContent = "<p>Das Passwort Ihres Schulaccounts läuft in $validdays Tagen ab.</p>
-                            <p>Bitte denken Sie daran es zeitnah zu aktualisieren.</p>
+                            <p>Bitte denken Sie daran es zeitnah zu aktualisieren bevor es endgültig abläuft und Ihr Account gesperrt wird.</p>
                             <p>Mobile Schulkonsole: <a href='$resethost'>$resethost</a>.</p>
                             <p>Hinweis: Es handelt sich um eine automatisch generierte Email. Sie werden diese täglich bis zum endgültigen Ablauf Ihres Passwortes erhalten.</p>
                             ";
