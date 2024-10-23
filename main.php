@@ -121,8 +121,10 @@ if(!$conf){
                         $mail = new PHPMailer(true);
 
                         ################################################################
-                        #  Änderung des Speicherns der SMTP Debug Ausgabe in Logfile
+                        #  Änderung des Speicherns der SMTP Debug Ausgabe in Logfile   
                         $mail->Debugoutput = function($str, $level) {
+                            $date = new DateTime();
+                            $date = $date->format("Y-m-d H:i:s");
                             file_put_contents('./log/smtp.log', $date. "\t$level\t$str\n", FILE_APPEND | LOCK_EX);
                         };
                         ################################################################
