@@ -38,14 +38,14 @@ Hinweis: Falls die mobile SK nicht installiert ist, bitte nach [Anleitung](https
     * pwresethost: Link zur mobilen SK (wird in die Email eingebunden)
 
 ### Start
-Wechslen Sie in das Verzeichnis /opt/paedMl/ldappwcheck `cd /opt/paedMl/ldappwcheck`
+Wechslen Sie in das Verzeichnis /opt/paedMl/ldappwcheck `cd /opt/paedML/ldappwcheck`
 
 Starten Sie den Container mit dem Befehl
 
     ./docker-compose up -d
 
 ### Stop 
-Wechseln Sie in das Verzeichnis /opt/paedMl/ldappwcheck `cd /opt/paedMl/ldappwcheck`
+Wechseln Sie in das Verzeichnis /opt/paedMl/ldappwcheck `cd /opt/paedML/ldappwcheck`
 
 Stoppen Sie den Container mit dem Befehl
 
