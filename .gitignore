@@ -1,3 +1,4 @@
 vendor/*
 composer*
+!composer.json
 config.ini
