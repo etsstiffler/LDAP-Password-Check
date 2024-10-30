@@ -20,13 +20,14 @@ date_default_timezone_set('Europe/Berlin');
 
 # Logging
 $date = new DateTime();
-$date = $date->format("Y-m-d h:i:s");
+$day = $date->format("Y-m-d ");
+$date = $date->format("Y-m-d H:i:s");
 $logdir = "./log/";
 $logfile = $logdir.$date ."-ldap-pw-check.log";
 $log = array();
 $date = new DateTime();
-$date = $date->format("Y-m-d h:i:s");
-$log[] = $date." [INFO] Start LDAP-PW-Check";
+$date = $date->format("Y-m-d H:i:s");
+$log[] = $date."\t[INFO]\tStart LDAP-PW-Check";
 
 
 
@@ -35,8 +36,8 @@ $conf = parse_ini_file('config.ini');
 
 if(!$conf){
     $date = new DateTime();
-    $date = $date->format("Y-m-d h:i:s");
-    $log[] = $date." [ERROR] Es gab ein Problem mit der config.ini. Entweder enhält sie Fehler oder ist nicht vorhanden. Skript bricht ab.";
+    $date = $date->format("Y-m-d H:i:s");
+    $log[] = $date."\t[ERROR]\tEs gab ein Problem mit der config.ini. Entweder enhält sie Fehler oder ist nicht vorhanden. Skript bricht ab.";
 
 }else{
     # Variablen aus der config.ini zuweisen
@@ -74,8 +75,8 @@ if(!$conf){
         if ($ldapbind) {
             
             $date = new DateTime();
-            $date = $date->format("Y-m-d h:i:s");
-            $log[] = $date." [INFO] LDAP Verbindungstatus: " . ldap_error($ldapconn);
+            $date = $date->format("Y-m-d H:i:s");
+            $log[] = $date."\t[INFO]\tLDAP Verbindungstatus: " . ldap_error($ldapconn);
 
 
             $basedn = "ou=$ldapou, ou=Benutzer, ou=$ldapschule, ou=SCHULEN, o=ml3";
@@ -87,14 +88,16 @@ if(!$conf){
 
 
             $date = new DateTime();
-            $date = $date->format("Y-m-d h:i:s");
-            $log[] = $date." [INFO] Anzahl aller Accounts " . $info["count"];
-            $log[] = $date." [INFO] Accounts mit abgelaufenem Passwort";
+            $date = $date->format("Y-m-d H:i:s");
+            $log[] = $date."\t[INFO]\tAnzahl aller Accounts " . $info["count"];
+            $log[] = $date."\t[INFO]\tAccounts mit abgelaufenem Passwort";
 
             for ($i=0; $i < $info["count"]; $i++) {
                 
                 # Nur Accounts mit Mailadresse berücksichtigen
                 if(isset($info[$i]["mail"][0])){
+
+                    # Speichern der wichtigen Account Infos in ensprechenden Variablen
                     $cn = $info[$i]["cn"][0];
                     $mailaddress = $info[$i]["mail"][0];
                     $expirationdate = $info[$i]["passwordexpirationtime"][0];
@@ -109,10 +112,20 @@ if(!$conf){
                     if((0 <= $validdays) && ($validdays <= 10)){
 
                         $date = new DateTime();
-                        $date = $date->format("Y-m-d h:i:s");
+                        $date = $date->format("Y-m-d H:i:s");
                         $log[] = $date." [INFO] $cn";
 
+                        # Start der PHPMAiler Klasse
                         $mail = new PHPMailer(true);
+
+                        ################################################################
+                        #  Änderung des Speicherns der SMTP Debug Ausgabe in Logfile
+                        $mail->Debugoutput = function($str, $level) {
+                            $date = new DateTime();
+                            $date = $date->format("Y-m-d H:i:s");
+                            file_put_contents('./log/'.$date.'_smtp.log', $date. "\t$level\t$str\n", FILE_APPEND | LOCK_EX);
+                        };
+                        ################################################################
                         $mail->CharSet = 'utf-8'; 
                         $mail->isSMTP();
                         $mail->SMTPDebug = $debug;
@@ -135,14 +148,15 @@ if(!$conf){
                         if(!($mail->send())){
 
                         $date = new DateTime();
-                        $date = $date->format("Y-m-d h:i:s");  
-                        $log[] = $date." [ERROR] Mail an $cn konnte nicht gesendet werden.";
-                        $log[] = $date." [ERROR] Mailer Error: " . $mail->ErrorInfo;
+                        $date = $date->format("Y-m-d H:i:s");  
+                        $log[] = $date."\t[ERROR]\tMail an $cn konnte nicht gesendet werden.";
+                        $log[] = $date."\t[ERROR]\tMailer Error: " . $mail->ErrorInfo;
 
                         }else{
                             $date = new DateTime();
-                            $date = $date->format("Y-m-d h:i:s");  
-                            $log[] = $date." [INFO] Mail an $cn gesendet.";
+                            $date = $date->format("Y-m-d H:i:s"); 
+                            $log[] = $date."\t[INFO]\tMail an $cn gesendet.";
+                            $log[] = $date."\t[INFO]\tSMTP Log siehe ". $day."_smtp.log";
                         }
                     }
                 }
@@ -150,19 +164,19 @@ if(!$conf){
             }
         } else {
             $date = new DateTime();
-            $date = $date->format("Y-m-d h:i:s");
+            $date = $date->format("Y-m-d H:i:s");
             $log[] = $date." [ERROR] LDAP Verbindungstatus: " . ldap_error($ldapconn);
             ldap_get_option($ldapconn, LDAP_OPT_DIAGNOSTIC_MESSAGE, $err);
             $log[] = $date." (ERROR] ldap_get_option: $err";
         }
     }else{
         $date = new DateTime();
-        $date = $date->format("Y-m-d h:i:s");
+        $date = $date->format("Y-m-d H:i:s");
         $log[] = $date." [ERROR] Die LDAP-URI enthält Fehler.";
     };
     
     $date = new DateTime();
-    $date = $date->format("Y-m-d h:i:s");
+    $date = $date->format("Y-m-d H:i:s");
     $log[] = $date." [INFO] Skript beendet";
 
     # Speichern des Logs
