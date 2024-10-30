@@ -182,7 +182,13 @@ if(!$conf){
             $logusersmail = implode(",",$logusersmail);
             $loguserlock = implode(",", $loguserlock);
 
-            $smtplog = file_get_contents('./log/smtp.log');
+            # STMP Log auslesen, falls es existiert
+            if(file_exists('./log/smtp.log')){
+                $smtplog = file_get_contents('./log/smtp.log');
+            }else{
+                $smtplog = $date."\t[INFO]\tEs wurde keine Email verschickt.";
+            }
+            
 
             $log[] = "------------------------------------";
             $log[] = $date."\t[INFO]\tMailversand an folgende Accounts:";
