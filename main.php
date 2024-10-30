@@ -18,11 +18,15 @@ require 'vendor/autoload.php';
 # Zeitzone festlegen
 date_default_timezone_set('Europe/Berlin');
 
-# Errormeldungen
+# Logging
+$date = new DateTime();
+$date = $date->format("Y-m-d h:i:s");
+$logdir = "./log/";
+$logfile = $logdir.$date ."-ldap-pw-check.log";
 $log = array();
 $date = new DateTime();
-$date = $date->format("y:m:d h:i:s");
-$log[] = $date." Start LDAP-PW-Check";
+$date = $date->format("Y-m-d h:i:s");
+$log[] = $date." [INFO] Start LDAP-PW-Check";
 
 
 
@@ -31,8 +35,8 @@ $conf = parse_ini_file('config.ini');
 
 if(!$conf){
     $date = new DateTime();
-    $date = $date->format("y:m:d h:i:s");
-    $log[] = $date." Es gab ein Problem mit der config.ini. Entweder enhält sie Fehler oder ist nicht vorhanden. Skript bricht ab.";
+    $date = $date->format("Y-m-d h:i:s");
+    $log[] = $date." [ERROR] Es gab ein Problem mit der config.ini. Entweder enhält sie Fehler oder ist nicht vorhanden. Skript bricht ab.";
 
 }else{
     # Variablen aus der config.ini zuweisen
@@ -70,8 +74,8 @@ if(!$conf){
         if ($ldapbind) {
             
             $date = new DateTime();
-            $date = $date->format("y:m:d h:i:s");
-            $log[] = $date." LDAP Verbindungstatus: " . ldap_error($ldapconn);
+            $date = $date->format("Y-m-d h:i:s");
+            $log[] = $date." [INFO] LDAP Verbindungstatus: " . ldap_error($ldapconn);
 
 
             $basedn = "ou=$ldapou, ou=Benutzer, ou=$ldapschule, ou=SCHULEN, o=ml3";
@@ -80,6 +84,12 @@ if(!$conf){
             $sr = ldap_list($ldapconn, $basedn, "sn=*", $justthese);
 
             $info = ldap_get_entries($ldapconn, $sr);
+
+
+            $date = new DateTime();
+            $date = $date->format("Y-m-d h:i:s");
+            $log[] = $date." [INFO] Anzahl aller Accounts " . $info["count"];
+            $log[] = $date." [INFO] Accounts mit abgelaufenem Passwort";
 
             for ($i=0; $i < $info["count"]; $i++) {
                 
@@ -97,6 +107,11 @@ if(!$conf){
                     # Wenn gültige Tage sich zwischen 0 und 10 befindet, wird eine Mail gesendet
                     # Neue bzw. abgelaufene Accounts haben negative Gültigkeitstage
                     if((0 <= $validdays) && ($validdays <= 10)){
+
+                        $date = new DateTime();
+                        $date = $date->format("Y-m-d h:i:s");
+                        $log[] = $date." [INFO] $cn";
+
                         $mail = new PHPMailer(true);
                         $mail->CharSet = 'utf-8'; 
                         $mail->isSMTP();
@@ -118,8 +133,16 @@ if(!$conf){
                             ";
                         $mail->Body = $mailContent;
                         if(!($mail->send())){
-                        $errors[] = 'Message could not be sent.';
-                        $errors[] = 'Mailer Error: ' . $mail->ErrorInfo;
+
+                        $date = new DateTime();
+                        $date = $date->format("Y-m-d h:i:s");  
+                        $log[] = $date." [ERROR] Mail an $cn konnte nicht gesendet werden.";
+                        $log[] = $date." [ERROR] Mailer Error: " . $mail->ErrorInfo;
+
+                        }else{
+                            $date = new DateTime();
+                            $date = $date->format("Y-m-d h:i:s");  
+                            $log[] = $date." [INFO] Mail an $cn gesendet.";
                         }
                     }
                 }
@@ -127,22 +150,25 @@ if(!$conf){
             }
         } else {
             $date = new DateTime();
-            $date = $date->format("y:m:d h:i:s");
-            $log[] = $date." LDAP Verbindungstatus: " . ldap_error($ldapconn);
+            $date = $date->format("Y-m-d h:i:s");
+            $log[] = $date." [ERROR] LDAP Verbindungstatus: " . ldap_error($ldapconn);
             ldap_get_option($ldapconn, LDAP_OPT_DIAGNOSTIC_MESSAGE, $err);
-            $log[] = $date." ldap_get_option: $err";
+            $log[] = $date." (ERROR] ldap_get_option: $err";
         }
     }else{
         $date = new DateTime();
-        $date = $date->format("y:m:d h:i:s");
-        $log[] = $date." Die LDAP-URI enthält Fehler.";
+        $date = $date->format("Y-m-d h:i:s");
+        $log[] = $date." [ERROR] Die LDAP-URI enthält Fehler.";
     };
     
+    $date = new DateTime();
+    $date = $date->format("Y-m-d h:i:s");
+    $log[] = $date." [INFO] Skript beendet";
 
-    # Ausgabe der Fehler
+    # Speichern des Logs
     if(!empty($log)){
         $log = implode(" \n",$log)."\n";
-        echo $log;
+        file_put_contents($logfile, $log);
     }
 }
 ?>
