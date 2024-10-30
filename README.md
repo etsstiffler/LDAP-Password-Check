@@ -6,27 +6,22 @@ Email: [dr@werkgymnasium.de](mailto:dr@werkgymnasium.de)
 
 ## Beschreibung
 Diese Software ist für den Einsatz in der PaedML-Novell vorgesehen.
-Es wird täglich geprüft, ob das Passwort von Lehreraccounts noch ein Mindestanzahl an Tagen gültig ist.
-Andernfalls wird eine Erinnerungsmail an die betroffenen Axccounts versendet.
+Es wird täglich geprüft, ob das Passwort von Lehreraccounts noch eine Mindestanzahl von 10 Tagen gültig ist.
+Andernfalls wird täglich eine Erinnerungsmail an die betroffenen Accounts versendet.
+Jeder Durchlauf wird in einer Logdatei im Ordner 'log' protokolliert.
 
 ## Benutzung
 ### Installationsvoraussetzungen:
 * PaedMl-Novell 4.5 (4.4 sollte ebenfalls funktionieren)
-* Mobile Schulkonsole installiert (Es werden der LDAP und GroupWise Benutzer der mobilen SK, sowie docker auf dem Gserver benötigt).
-Hinweis: Falls die mobile SK nicht installiert ist, bitte nach [Anleitung](https://www.lmz-bw.de/index.php?eID=dumpFile&t=f&f=31991&token=d4f2caeef57b533b72d72409f248dbccd2eff8c7) des LMZ einrichten 
+* Mobile Schulkonsole installiert (Es werden der LDAP- und GroupWise-Benutzer der mobilen SK, sowie docker auf dem Gserver benötigt).
+Hinweis: Falls die mobile SK nicht installiert ist, bitte nach [Anleitung Schulkonsole-mobil 0.9.6 Update, Installation, Bedienung](https://www.lmz-bw.de/netzwerkloesung/produkte-paedml/paedml-novell/downloads) (Hinweis: Download der Anleitung nur eingeloggt möglich) des LMZ einrichten 
 * Netzwerkadressbeschränkungen des ldapuserskmobil entfernt
 
 ### Installation
 1. Kopieren Sie die Dateien via WinSCP/BitviseSSH auf den Gserver in den Ordner /opt/paedML/ldappwcheck (Ordner ggf. anlegen)
 1. Loggen Sie sich auf der Konsole im Gserver ein.
 1. Wechseln sie mit `cd /opt/paedML/ldappwcheck` in den oben erstellen Ordner.
-1. Führen Sie folgende Befehle aus:
-    ```
-    chmod +x docker-compose
-    ./docker-compose build --no-cache
-
-    ´´´
-1. Kopieren Sie die Beispielconfig
+l. Kopieren Sie die Beispielconfig
 
     `cp ./config.ini.example ./config.ini`
 
@@ -36,29 +31,65 @@ Hinweis: Falls die mobile SK nicht installiert ist, bitte nach [Anleitung](https
     * ldapou: Benutzergruppe für die Erinnerungsemails verschickt werden soll, aktuell ist nur eine Gruppe pro Docker-Container möglich und im Auge des Entwicklers nur für die Lehrergruppe sinnvoll.
     * mailhost und co.: Einstellungen für den Versand der Emails
     * pwresethost: Link zur mobilen SK (wird in die Email eingebunden)
+    * maildebug: Falls es Probleme beim Mailversand gibt, kann hiermit eine Logdatei erzeugt werden.
+
+1. Führen Sie folgende Befehle aus:
+    ```
+    chmod +x docker-compose
+    ./docker-compose build --no-cache
+
+    ´´´
+Hinweis: der Befehl `./docker-compose build --no-cache` muss nach jeder späteren Änderung der config.ini erneut ausgeführt werden.
 
 ### Start
-Wechslen Sie in das Verzeichnis /opt/paedMl/ldappwcheck `cd /opt/paedML/ldappwcheck`
+Wechseln Sie in das Verzeichnis /opt/paedMl/ldappwcheck 
+
+    cd /opt/paedML/ldappwcheck
 
 Starten Sie den Container mit dem Befehl
 
     ./docker-compose up -d
 
+Überprüfen Sie, ob der Container läuft mittels
+
+    docker ps
 ### Stop 
-Wechseln Sie in das Verzeichnis /opt/paedMl/ldappwcheck `cd /opt/paedML/ldappwcheck`
+Wechseln Sie in das Verzeichnis /opt/paedMl/ldappwcheck 
+
+    cd /opt/paedML/ldappwcheck
 
 Stoppen Sie den Container mit dem Befehl
 
     ./docker-compose down
+
+Dieser Befehl löscht auch den Container. Überprüfen sie, ob der Container wirklich gestopp und entfernt wurde mittels
+
+    docker ps
     
 ### Aktualisieren des Dockerimages
 1. Stoppen Sie den Container wie oben beschrieben.
 1. Löschen Sie das aktuelle Docker-Image:
-    `docker rmi ldap-pw-check`
+
+    docker rmi ldap-pw-check
+
 1. Bauen Sie das Docker Image neu 
-    `./docker-compose build --no-cache`
+
+    ./docker-compose build --no-cache
 
 
 ## Tipps und Hinweise
 - In der Konfiguration des Cronjobs ist 00:00 Uhr als Zeitpunkt der Ausführung eingetragen. Im Docker-Container ist die Zeitzone UTC, heißt 02:00 Uhr MEZ.
-- Beim Bearbeiten von Dateien mit VS-Code kann es vorkommen, dass Zeilenumbrüche und -enden nicht linuxkonform formatiert werden. Dies ist speziell beim Editieren der Crontab zu beachten.
+- Beim Bearbeiten von Dateien mit VS-Code kann es vorkommen, dass Zeilenumbrüche und -enden nicht Linuxkonform formatiert werden. Dies ist speziell beim Editieren der Crontab zu beachten.
+- Sollten Probleme beim Starten/Stoppen des Containers bzw. Bauen des Containers hilft meist ein neustart des Docker Prozesses
+
+    systemctl restart docker.service
+
+- Alte Containerleichen können mittels 
+
+    docker container rm CONTAINER_NAME
+
+  entfernt werden.
+
+- ACHTUNG nur für Erfahrene (!!!), mit VORSICHT verwenden und vorher [Dokumentation](https://docs.docker.com/reference/cli/docker/system/prune/) lesen. Das gesamte Docker System kann mit 
+    docker system prune
+  aufgeräumt werden.
