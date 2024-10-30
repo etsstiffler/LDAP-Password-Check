@@ -7,4 +7,5 @@ services:
     restart: unless-stopped
     volumes:
       - ./log:/app/log
+      - .log.conf:/etc/logrotate.d/log.conf
 
