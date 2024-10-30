@@ -185,17 +185,22 @@ if(!$conf){
             # STMP Log auslesen, falls es existiert
             if(file_exists('./log/smtp.log')){
                 $smtplog = file_get_contents('./log/smtp.log');
+
+
+                $log[] = "------------------------------------";
+                $log[] = $date."\t[INFO]\tMailversand an folgende Accounts:";
+                $log[] = $date."\t[INFO]\t$logusersmail";
+                $log[] = $date."\t[INFO]\tSMTP-Log:";
+                $log[] = $smtplog;
+                $log[] = "------------------------------------";
             }else{
+                $log[] = "------------------------------------";
                 $smtplog = $date."\t[INFO]\tEs wurde keine Email verschickt.";
+                $log[] = "------------------------------------";
             }
             
 
-            $log[] = "------------------------------------";
-            $log[] = $date."\t[INFO]\tMailversand an folgende Accounts:";
-            $log[] = $date."\t[INFO]\t$logusersmail";
-            $log[] = $date."\t[INFO]\tSMTP-Log:";
-            $log[] = $smtplog;
-            $log[] = "------------------------------------";
+
             $log[] = $date."\t[INFO]\tAbgelaufene Accounts:";
             $log[] = $date."\t[INFO]\t$loguserlock";
             $log[] = "------------------------------------";
