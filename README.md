@@ -63,7 +63,7 @@ Hinweis: Der Befehl `./docker-compose build --no-cache` muss nach jeder spätere
 
     `./docker-compose down`
 
-Dieser Befehl stoppt und löscht den Container. 
+    Dieser Befehl stoppt und löscht den Container. 
 1. Überprüfen , ob der Container wirklich gestoppt und entfernt wurde:
 
     `docker ps`
