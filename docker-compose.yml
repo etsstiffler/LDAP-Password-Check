@@ -1,8 +1,10 @@
-version: "3"
+version: "3.7"
 services:
   ldap-pw-check:
     image: ldap-pw-check:0.3
     build: .
     container_name: ldap-pw-check
     restart: unless-stopped
+    volumes:
+      - ./log:/app/log
 
