@@ -121,7 +121,8 @@ if(!$conf){
                         $mail = new PHPMailer(true);
 
                         ################################################################
-                        #  Änderung des Speicherns der SMTP Debug Ausgabe in Logfile   
+                        # Änderung des Speicherns der SMTP Debug Ausgabe in eigenem Logfile
+                        # smtp.log wird am Ende in das gesamte Logfile integriert
                         $mail->Debugoutput = function($str, $level) {
                             $date = new DateTime();
                             $date = $date->format("Y-m-d H:i:s");
@@ -141,25 +142,30 @@ if(!$conf){
                         $mail->addAddress($mailaddress);
                         $mail->Subject = "Erinnerung - Passwortablauf in $validdays Tagen";
                         $mail->isHTML(true);
+                        #################################################################
+                        # Mailinhalt auf Wunsch anpassen
                         $mailContent = "<p>Das Passwort Ihres Schulaccounts läuft in $validdays Tagen ab.</p>
                             <p>Bitte denken Sie daran es zeitnah zu aktualisieren bevor es endgültig abläuft und Ihr Account gesperrt wird.</p>
                             <p>Mobile Schulkonsole: <a href='$resethost'>$resethost</a>.</p>
                             <p>Hinweis: Es handelt sich um eine automatisch generierte Email. Sie werden diese täglich bis zum endgültigen Ablauf Ihres Passwortes erhalten.</p>
                             ";
+                        ################################################################
                         $mail->Body = $mailContent;
-                        if(!($mail->send())){
 
-                        $date = new DateTime();
-                        $date = $date->format("Y-m-d H:i:s");  
-                        $log[] = $date."\t[ERROR]\tMail an $cn konnte nicht gesendet werden.";
-                        $log[] = $date."\t[ERROR]\tMailer Error: " . $mail->ErrorInfo;
+                        # Abschicken der Email
+                        if(!($mail->send())){
+                            # Mail wurde nicht gesendet Empfänger und Fehlerinfo werden in Logvariable abgelegt
+                            $date = new DateTime();
+                            $date = $date->format("Y-m-d H:i:s");  
+                            $log[] = $date."\t[ERROR]\tMail an $cn konnte nicht gesendet werden.";
+                            $log[] = $date."\t[ERROR]\tMailer Error: " . $mail->ErrorInfo;
 
                         }else{
                             # Mail erfolgreich gesendet, Namen in Array ablegen
                             $logusersmail[] = $cn;
                         }
                     }
-                    # Alle bereits 
+                    # Alle bereits abgelaufenen Accounts werden für eine Übersicht in $loguserlock abgelegt.
                     if ($validdays <= 0){
                         $loguserlock[] = $cn;
 
@@ -214,7 +220,7 @@ if(!$conf){
         $log[] = $date."\t[ERROR]\tSMTP-Log konnte nicht gelöscht werden.";
     }
 
-    
+
     # Log Abschluss
     $date = new DateTime();
     $date = $date->format("Y-m-d H:i:s");
