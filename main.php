@@ -188,7 +188,7 @@ if(!$conf){
             $log[] = $date."\t[INFO]\t$loguserlock";
             $log[] = "------------------------------------";
 
-            
+
         } else {
             $date = new DateTime();
             $date = $date->format("Y-m-d H:i:s");
@@ -202,6 +202,19 @@ if(!$conf){
         $log[] = $date."\t[ERROR]\tDie LDAP-URI enthält Fehler.";
     }
 
+    # Löschen des temporären smtp logs
+    if(file_exists('./log/smtp.log')){
+        unlink('./log/smtp.log');
+        $date = new DateTime();
+        $date = $date->format("Y-m-d H:i:s");
+        $log[] = $date."\t[INFO]\tSMTP-Log gelöscht.";
+    }else{
+        $date = new DateTime();
+        $date = $date->format("Y-m-d H:i:s");
+        $log[] = $date."\t[ERROR]\tSMTP-Log konnte nicht gelöscht werden.";
+    }
+
+    
     # Log Abschluss
     $date = new DateTime();
     $date = $date->format("Y-m-d H:i:s");
