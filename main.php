@@ -165,19 +165,19 @@ if(!$conf){
         } else {
             $date = new DateTime();
             $date = $date->format("Y-m-d H:i:s");
-            $log[] = $date." [ERROR] LDAP Verbindungstatus: " . ldap_error($ldapconn);
+            $log[] = $date."\t[ERROR]\tLDAP Verbindungstatus: " . ldap_error($ldapconn);
             ldap_get_option($ldapconn, LDAP_OPT_DIAGNOSTIC_MESSAGE, $err);
-            $log[] = $date." (ERROR] ldap_get_option: $err";
+            $log[] = $date."\t[ERROR] ldap_get_option: $err";
         }
     }else{
         $date = new DateTime();
         $date = $date->format("Y-m-d H:i:s");
-        $log[] = $date." [ERROR] Die LDAP-URI enthält Fehler.";
+        $log[] = $date."\t[ERROR]\tDie LDAP-URI enthält Fehler.";
     };
     
     $date = new DateTime();
     $date = $date->format("Y-m-d H:i:s");
-    $log[] = $date." [INFO] Skript beendet";
+    $log[] = $date."\t[INFO]\tSkript beendet";
 
     # Speichern des Logs
     if(!empty($log)){
