@@ -18,14 +18,14 @@ Hinweis: Falls die mobile SK nicht installiert ist, bitte nach [Anleitung Schulk
 * Netzwerkadressbeschränkungen des ldapuserskmobil entfernt
 
 ### Installation
-1. Kopieren Sie die Dateien via WinSCP/BitviseSSH auf den Gserver in den Ordner /opt/paedML/ldappwcheck (Ordner ggf. anlegen)
-1. Loggen Sie sich auf der Konsole im Gserver ein.
-1. Wechseln sie mit `cd /opt/paedML/ldappwcheck` in den oben erstellen Ordner.
+1. Kopieren Sie die Dateien via WinSCP/BitviseSSH auf den Gserver in den Ordner `/opt/paedML/ldappwcheck` (Ordner ggf. anlegen)
+1. Melden Sie sich auf der Konsole am Gserver an.
+1. Wechseln Sie mit `cd /opt/paedML/ldappwcheck` in den oben erstellen Ordner.
 l. Kopieren Sie die Beispielconfig
 
     `cp ./config.ini.example ./config.ini`
 
-1. Passen Sie in der config.ini die Parameter Ihrer Schule/Benutzer an.
+1. Passen Sie in der `config.ini` die Parameter Ihrer Schule/Benutzer an.
     * ldapuser: LDAP-Benutzer der mobilen SK mit zugehörigem Passwort
     * ldapschule: Name der Schule im LDAP Baum
     * ldapou: Benutzergruppe für die Erinnerungsemails verschickt werden soll, aktuell ist nur eine Gruppe pro Docker-Container möglich und im Auge des Entwicklers nur für die Lehrergruppe sinnvoll.
@@ -34,47 +34,51 @@ l. Kopieren Sie die Beispielconfig
     * maildebug: Falls es Probleme beim Mailversand gibt, kann hiermit eine Logdatei erzeugt werden.
 
 1. Führen Sie folgende Befehle aus:
-    ```
+    `
     chmod +x docker-compose
     ./docker-compose build --no-cache
+    `
 
-    ´´´
+   
 Hinweis: der Befehl `./docker-compose build --no-cache` muss nach jeder späteren Änderung der config.ini erneut ausgeführt werden.
 
 ### Start
-Wechseln Sie in das Verzeichnis /opt/paedMl/ldappwcheck 
+l. Wechsel in das Verzeichnis `/opt/paedMl/ldappwcheck`
 
-    cd /opt/paedML/ldappwcheck
+    `cd /opt/paedML/ldappwcheck`
 
-Starten Sie den Container mit dem Befehl
+l. Start des Containers:
 
-    ./docker-compose up -d
+    `./docker-compose up -d`
 
-Überprüfen Sie, ob der Container läuft mittels
+l. Check, ob Container läuft:
 
-    docker ps
+    `docker ps`
+
+
 ### Stop 
-Wechseln Sie in das Verzeichnis /opt/paedMl/ldappwcheck 
+l. Wechseln Sie in das Verzeichnis `/opt/paedMl/ldappwcheck `
 
-    cd /opt/paedML/ldappwcheck
+    `cd /opt/paedML/ldappwcheck`
 
-Stoppen Sie den Container mit dem Befehl
+l. Stoppen Sie den Container mit dem Befehl
 
-    ./docker-compose down
+    `./docker-compose down`
 
-Dieser Befehl löscht auch den Container. Überprüfen sie, ob der Container wirklich gestopp und entfernt wurde mittels
+Dieser Befehl stoppt und löscht den Container. 
+l. Überprüfen , ob der Container wirklich gestoppt und entfernt wurde:
 
-    docker ps
+    `docker ps`
     
 ### Aktualisieren des Dockerimages
-1. Stoppen Sie den Container wie oben beschrieben.
-1. Löschen Sie das aktuelle Docker-Image:
+l. Container stoppen (siehe oben)
+l. Altes Image löschen
 
-    docker rmi ldap-pw-check
+    `docker rmi ldap-pw-check`
 
-1. Bauen Sie das Docker Image neu 
+l. Neubau des Images 
 
-    ./docker-compose build --no-cache
+    `./docker-compose build --no-cache`
 
 
 ## Tipps und Hinweise
