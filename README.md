@@ -14,7 +14,7 @@ Jeder Durchlauf wird in einer Logdatei im Ordner 'log' protokolliert.
 
 ## Benutzung
 ### Installationsvoraussetzungen:
-* PaedMl-Novell 4.4+
+* PaedML-Novell 4.4+
 * Mobile Schulkonsole installiert (Es werden der LDAP- und GroupWise-Benutzer der mobilen SK, sowie docker auf dem Gserver benötigt).
 * git
 Hinweis: Falls die mobile SK nicht installiert ist, bitte nach [Anleitung Schulkonsole-mobil 0.9.6 Update, Installation, Bedienung](https://www.lmz-bw.de/netzwerkloesung/produkte-paedml/paedml-novell/downloads) (Hinweis: Download der Anleitung nur eingeloggt möglich) des LMZ einrichten 
