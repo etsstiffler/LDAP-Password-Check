@@ -25,5 +25,5 @@ mailsmtpauth=false
 mailsmtpsecure=false
 mailsmtpautotls=false
 ; Debugging Nachrichten für Mailversand - nur für Entwickler gedacht
-; 0 = no output, 1 = errors and messages, 2 = messages only
+; 0 = no output, 1 = client; will show you messages sent by the client, 2 = client and server; will add server messages, it’s the recommended setting; 3 = client, server, and connection; will add details about the initial information, which might be useful for discovering STARTTLS; 4 = low-level information
 maildebug=0
