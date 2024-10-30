@@ -57,7 +57,7 @@ if ($ldapconn) {
 
         for ($i=0; $i < $info["count"]; $i++) {
             
-            # Nur Acxcounts mit Mailadresse berücksichtigen
+            # Nur Accounts mit Mailadresse berücksichtigen
             if(isset($info[$i]["mail"][0])){
                 $cn = $info[$i]["cn"][0];
                 $mailaddress = $info[$i]["mail"][0];
@@ -112,3 +112,4 @@ if(!empty($errors)){
     echo $errors;
 }
 
+?>
