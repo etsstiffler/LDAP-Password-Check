@@ -225,10 +225,6 @@ if(!$conf){
         $date = new DateTime();
         $date = $date->format("Y-m-d H:i:s");
         $log[] = $date."\t[INFO]\tSMTP-Log gelöscht.";
-    }else{
-        $date = new DateTime();
-        $date = $date->format("Y-m-d H:i:s");
-        $log[] = $date."\t[ERROR]\tSMTP-Log konnte nicht gelöscht werden.";
     }
 
 
