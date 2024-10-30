@@ -186,7 +186,7 @@ if(!$conf){
 
             $log[] = "------------------------------------";
             $log[] = $date."\t[INFO]\tMailversand an folgende Accounts:";
-            $log[] = $date."\t[INFO]\t$logusermail";
+            $log[] = $date."\t[INFO]\t$logusersmail";
             $log[] = $date."\t[INFO]\tSMTP-Log:";
             $log[] = $smtplog;
             $log[] = "------------------------------------";
