@@ -23,7 +23,7 @@ $date = new DateTime();
 $day = $date->format("Y-m-d ");
 $date = $date->format("Y-m-d H:i:s");
 $logdir = "./log/";
-$logfile = $logdir.$date ."-ldap-pw-check.log";
+$logfile = $logdir."ldap-pw-check.log";
 $log = array();
 $date = new DateTime();
 $date = $date->format("Y-m-d H:i:s");
@@ -232,11 +232,12 @@ if(!$conf){
     $date = new DateTime();
     $date = $date->format("Y-m-d H:i:s");
     $log[] = $date."\t[INFO]\tSkript beendet";
+    $log[] = "------------------------------------";
 
     # Speichern des Logs
     if(!empty($log)){
         $log = implode(" \n",$log)."\n";
-        file_put_contents($logfile, $log);
+        file_put_contents($logfile, $log, FILE_APPEND | LOCK_EX);
     }
 }
 ?>
