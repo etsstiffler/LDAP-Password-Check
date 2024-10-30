@@ -86,11 +86,15 @@ if(!$conf){
 
             $info = ldap_get_entries($ldapconn, $sr);
 
+            # Arrays zum speichern der Benutzer, die eine Mail bekommen bzw. deren Accounts bereits gesperrt sind
+            $logusersmail = array();
+            $loguserlock = array();
+
 
             $date = new DateTime();
             $date = $date->format("Y-m-d H:i:s");
-            $log[] = $date."\t[INFO]\tAnzahl aller Accounts " . $info["count"];
-            $log[] = $date."\t[INFO]\tAccounts mit abgelaufenem Passwort";
+            $log[] = $date."\t[INFO]\tAnzahl aller kontrollierter Accounts " . $info["count"];
+            #$log[] = $date."\t[INFO]\tBetroffene Accounts:";
 
             for ($i=0; $i < $info["count"]; $i++) {
                 
@@ -111,9 +115,7 @@ if(!$conf){
                     # Neue bzw. abgelaufene Accounts haben negative Gültigkeitstage
                     if((0 <= $validdays) && ($validdays <= 10)){
 
-                        $date = new DateTime();
-                        $date = $date->format("Y-m-d H:i:s");
-                        $log[] = $date." [INFO] $cn";
+          
 
                         # Start der PHPMAiler Klasse
                         $mail = new PHPMailer(true);
@@ -121,9 +123,7 @@ if(!$conf){
                         ################################################################
                         #  Änderung des Speicherns der SMTP Debug Ausgabe in Logfile
                         $mail->Debugoutput = function($str, $level) {
-                            $date = new DateTime();
-                            $date = $date->format("Y-m-d H:i:s");
-                            file_put_contents('./log/'.$date.'_smtp.log', $date. "\t$level\t$str\n", FILE_APPEND | LOCK_EX);
+                            file_put_contents('./log/smtp.log', $date. "\t$level\t$str\n", FILE_APPEND | LOCK_EX);
                         };
                         ################################################################
                         $mail->CharSet = 'utf-8'; 
@@ -153,11 +153,14 @@ if(!$conf){
                         $log[] = $date."\t[ERROR]\tMailer Error: " . $mail->ErrorInfo;
 
                         }else{
-                            $date = new DateTime();
-                            $date = $date->format("Y-m-d H:i:s"); 
-                            $log[] = $date."\t[INFO]\tMail an $cn gesendet.";
-                            $log[] = $date."\t[INFO]\tSMTP Log siehe ". $day."_smtp.log";
+                            # Mail erfolgreich gesendet, Namen in Array ablegen
+                            $logusersmail[] = $cn;
                         }
+                    }
+                    # Alle bereits 
+                    if ($validdays <= 0){
+                        $loguserlock[] = $cn;
+
                     }
                 }
                 
@@ -173,7 +176,7 @@ if(!$conf){
         $date = new DateTime();
         $date = $date->format("Y-m-d H:i:s");
         $log[] = $date."\t[ERROR]\tDie LDAP-URI enthält Fehler.";
-    };
+    }
     
     $date = new DateTime();
     $date = $date->format("Y-m-d H:i:s");
