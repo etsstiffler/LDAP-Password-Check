@@ -3,7 +3,8 @@ RUN apt-get update && apt-get install -y \
     cron \
     zip \
     unzip\
-    libldap2-dev
+    libldap2-dev\
+    logrotate
 
 RUN apt-get clean
 
@@ -13,6 +14,12 @@ RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Add logrotate conf
+ADD log.conf /etc/logrotate.d/log.conf
+
+# Set file rights 
+RUN chmod 0644 /etc/logrotate.d/log.conf
 
 # Add Crontab File
 ADD crontab /etc/cron.d/cron
