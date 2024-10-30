@@ -1,0 +1,2 @@
+# Jeden Tag um 00:00 Uhr soll der Cronjob ausgeführt werden
+0 0 * * * /usr/local/bin/php /app/main.php > /var/log/cron.log

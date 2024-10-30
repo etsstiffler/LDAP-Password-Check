@@ -1,0 +1,21 @@
+; LDAP Zugangsdaten
+ldapserver=ldap://10.1.1.32:389
+ldapuser=changeme
+ldappw=changeme
+; Schulname angeben
+ldapschule=WeG
+; ou für das der Passwortcheck durchgeführt werden soll
+; Aktuell nur für eine Implementiert
+ldapou= Lehrer
+
+mailhost=10.1.1.32
+mailuser=changeme
+mailpw=changeme
+mailfrom=admin@werkgymnasium.de
+pwresethost=https://sk.meineschule.de
+mailstmpauth=false
+mailstmpsecure=false
+mailstmpautotls=false
+; Debugging Nachrichten für Mailversand - nur für Entwickler gedacht
+; 0 = no output, 1 = errors and messages, 2 = messages only
+maildebug=0
