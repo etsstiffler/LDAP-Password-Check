@@ -41,40 +41,40 @@ l. Kopieren Sie die Beispielconfig
 Hinweis: Der Befehl `./docker-compose build --no-cache` muss nach jeder späteren Änderung der `config.ini`erneut ausgeführt werden.
 
 ### Start
-l. Wechsel in das Verzeichnis `/opt/paedMl/ldappwcheck`
+1. Wechsel in das Verzeichnis `/opt/paedMl/ldappwcheck`
 
     `cd /opt/paedML/ldappwcheck`
 
-l. Start des Containers:
+1. Start des Containers:
 
     `./docker-compose up -d`
 
-l. Check, ob Container läuft:
+1. Check, ob Container läuft:
 
     `docker ps`
 
 
 ### Stop 
-l. Wechseln Sie in das Verzeichnis `/opt/paedMl/ldappwcheck `
+1. Wechseln Sie in das Verzeichnis `/opt/paedMl/ldappwcheck `
 
     `cd /opt/paedML/ldappwcheck`
 
-l. Stoppen Sie den Container mit dem Befehl
+1. Stoppen Sie den Container mit dem Befehl
 
     `./docker-compose down`
 
 Dieser Befehl stoppt und löscht den Container. 
-l. Überprüfen , ob der Container wirklich gestoppt und entfernt wurde:
+1. Überprüfen , ob der Container wirklich gestoppt und entfernt wurde:
 
     `docker ps`
     
 ### Aktualisieren des Dockerimages
-l. Container stoppen (siehe oben)
-l. Altes Image löschen
+1. Container stoppen (siehe oben)
+1. Altes Image löschen
 
     `docker rmi ldap-pw-check`
 
-l. Neubau des Images 
+1. Neubau des Images 
 
     `./docker-compose build --no-cache`
 
