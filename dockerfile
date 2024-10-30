@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip\
     libldap2-dev\
-    nano
+
 RUN apt-get clean
 
 # Install LDAP Extension
@@ -13,7 +13,7 @@ RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer self-update
+
 # Add Crontab File
 ADD crontab /etc/cron.d/cron
 # Give execution rights on the cron job
