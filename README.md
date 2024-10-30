@@ -34,13 +34,11 @@ l. Kopieren Sie die Beispielconfig
     * maildebug: Falls es Probleme beim Mailversand gibt, kann hiermit eine Logdatei erzeugt werden.
 
 1. Führen Sie folgende Befehle aus:
-    ```
+    ``
     chmod +x docker-compose
     ./docker-compose build --no-cache
     `
-
-   
-Hinweis: der Befehl `./docker-compose build --no-cache` muss nach jeder späteren Änderung der config.ini erneut ausgeführt werden.
+Hinweis: Der Befehl `./docker-compose build --no-cache` muss nach jeder späteren Änderung der `config.ini`erneut ausgeführt werden.
 
 ### Start
 l. Wechsel in das Verzeichnis `/opt/paedMl/ldappwcheck`
