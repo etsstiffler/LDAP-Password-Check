@@ -182,6 +182,23 @@ if(!$conf){
     # Infos in Log einfügen
     # an wen wurden Mails geschickt
     # welche Accounts sind bereits abgelaufen
+    $date = new DateTime();
+    $date = $date->format("Y-m-d H:i:s");
+    $logusersmail = implode(",",$logusersmail);
+    $loguserlock = implode(",", $loguserlock);
+
+    $smtplog = file_get_contents('./log/smtp.log');
+
+    $log[] = "------------------------------------";
+    $log[] = $date."\t[INFO]\tMailversand an folgende Accounts:";
+    $log[] = $date."\t[INFO]\t$logusermail";
+    $log[] = $date."\t[INFO]\tSMTP-Log:";
+    $log[] = $smtplog;
+    $log[] = "------------------------------------";
+    $log[] = $date."\t[INFO]\tAbgelaufene Accounts:";
+    $log[] = $date."\t[INFO]\t$loguserlock";
+    $log[] = "------------------------------------";
+
 
 
     # Log Abschluss
