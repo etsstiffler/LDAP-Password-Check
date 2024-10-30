@@ -31,7 +31,7 @@ Hinweis: Falls die mobile SK nicht installiert ist, bitte nach [Anleitung Schulk
 
     `cd ldappwcheck`
 
-l. Kopieren Sie die Beispielconfig
+1. Kopieren Sie die Beispielconfig
 
     `cp ./config.ini.example ./config.ini`
 
