@@ -95,5 +95,5 @@ Hinweis: Der Befehl `./docker-compose build --no-cache` muss nach jeder spätere
 - ACHTUNG nur für Erfahrene (!!!), mit VORSICHT verwenden und vorher [Dokumentation](https://docs.docker.com/reference/cli/docker/system/prune/) lesen. Das gesamte Docker System kann mit 
 
     `docker system prune`
-    
-aufgeräumt werden.
+
+    aufgeräumt werden.
