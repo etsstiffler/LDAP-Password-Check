@@ -1,18 +1,26 @@
 ; LDAP Zugangsdaten
 ldapserver=ldap://10.1.1.32:389
+; LDAP Bind User anpassen
 ldapuser=changeme
-ldappw=changeme
-; Schulname angeben
-ldapschule=Schulname
+; Passwort in zwei einzelne Anführungszeichen setzen, um Probleme mit Sodnerzeichen zu verhindern
+ldappw='changeme'
+; Schulname anpassen falls nicht S01
+ldapschule=S01
 ; ou für das der Passwortcheck durchgeführt werden soll
-; Aktuell nur für eine Implementiert
+; Aktuell nur für eine ou gleichtzeitig implementiert. Ggf. mehrere Container bauen.
 ldapou= Lehrer
 
+; IP des GroupWise Servers
 mailhost=10.1.1.32
+; Benutzername für Mailaccount anpassen
 mailuser=changeme
-mailpw=changeme
-mailfrom=admin@werkgymnasium.de
+; Passwort in zwei einzelne Anführungszeichen setzen, um Probleme mit Sodnerzeichen zu verhindern
+mailpw='changeme'
+; Absendeadresse für die Mails
+mailfrom=admin@wmeineschulem.de
+; URL der mobilen Schulkonsole
 pwresethost=https://sk.meineschule.de
+
 mailsmtpauth=false
 mailsmtpsecure=false
 mailsmtpautotls=false
