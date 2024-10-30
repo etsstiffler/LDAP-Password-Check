@@ -102,7 +102,7 @@ Hinweis: Der Befehl `./docker-compose build --no-cache` muss nach jeder spätere
 ## Tipps und Hinweise
 - In der Konfiguration des Cronjobs ist 00:00 Uhr als Zeitpunkt der Ausführung eingetragen. Im Docker-Container ist die Zeitzone UTC, heißt 02:00 Uhr MEZ.
 - Beim Bearbeiten von Dateien mit VS-Code kann es vorkommen, dass Zeilenumbrüche und -enden nicht Linuxkonform formatiert werden. Dies ist speziell beim Editieren der Crontab zu beachten.
-- Sollten Probleme beim Starten/Stoppen des Containers bzw. Bauen des Containers hilft meist ein neustart des Docker Prozesses
+- Sollten Probleme beim Starten/Stoppen des Containers bzw. Bauen des Containers hilft meist ein Neustart des Docker Prozesses
 
     `systemctl restart docker.service`
 
