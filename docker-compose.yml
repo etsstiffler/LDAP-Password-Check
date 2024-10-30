@@ -7,8 +7,4 @@ services:
     restart: unless-stopped
     volumes:
       - ./log:/app/log
-      - type: bind
-        source: ./log.conf
-        target: /etc/logrotate.d/log.conf
-        read_only: yes
 
