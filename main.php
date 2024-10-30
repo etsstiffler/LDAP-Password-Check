@@ -177,7 +177,12 @@ if(!$conf){
         $date = $date->format("Y-m-d H:i:s");
         $log[] = $date."\t[ERROR]\tDie LDAP-URI enthält Fehler.";
     }
-    
+    # Infos in Log einfügen
+    # an wen wurden Mails geschickt
+    # welche Accounts sind bereits abgelaufen
+
+
+    # Log Abschluss
     $date = new DateTime();
     $date = $date->format("Y-m-d H:i:s");
     $log[] = $date."\t[INFO]\tSkript beendet";
