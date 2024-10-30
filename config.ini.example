@@ -8,7 +8,7 @@ ldappw='changeme'
 ldapschule=S01
 ; ou für das der Passwortcheck durchgeführt werden soll
 ; Aktuell nur für eine ou gleichtzeitig implementiert. Ggf. mehrere Container bauen.
-ldapou= Lehrer
+ldapou=Lehrer
 
 ; IP des GroupWise Servers
 mailhost=10.1.1.32
