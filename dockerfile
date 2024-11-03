@@ -37,7 +37,7 @@ RUN composer install
 RUN composer require phpmailer/phpmailer
 
 # Create the log file to be able to run tail
-RUN touch /var/log/cron.log
+RUN touch /app/log/cron.log
  
 # Run the command on container startup
 # Run the cron service in the foreground
