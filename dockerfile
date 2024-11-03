@@ -41,4 +41,4 @@ RUN touch /var/log/cron.log
  
 # Run the command on container startup
 # Run the cron service in the foreground
-CMD ["cron", "-f"]
+CMD ["cron"]
