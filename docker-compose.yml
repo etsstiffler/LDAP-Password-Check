@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   ldap-pw-check:
-    image: ldap-pw-check:0.4
+    image: ldap-pw-check:0.5
     build: .
     container_name: ldap-pw-check
     restart: unless-stopped
